@@ -5,7 +5,7 @@ const app = require('../lib/app');
 const Nba = require('../lib/models/Nba');
 const { findById } = require('../lib/models/Nba');
 
-describe('backend-hand-of-resources routes', () => {
+describe('nba routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
