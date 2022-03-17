@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Nba = require('../lib/models/Nba');
 // const Nba = require('../models/Nba');
 
 describe('backend-hand-of-resources routes', () => {
@@ -28,15 +29,16 @@ describe('backend-hand-of-resources routes', () => {
   });
 
   it('should get list of NBA teams', async () => {
-    const team1 = {
+    const team1 = await Nba.insert({
       name: 'Lakers',
       coach: 'Frank Vogel',
-    };
-    const team2 = {
+    });
+    const team2 = await Nba.insert({
       name: '76ers',
       coach: 'Doc Rivers',
-    };
+    });
 
     const res = await request(app).get('/api/v1/nba');
+    expect(res.body).toEqual(expect.arrayContaining([team1, team2]));
   });
 });
