@@ -53,7 +53,7 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(team);
   });
 
-  it('should edit NBA team', async () => {
+  it.only('should edit NBA team', async () => {
     const team = await Nba.insert({
       name: 'Lakers',
       coach: 'Frank Vogel',
