@@ -4,7 +4,6 @@ const request = require('supertest');
 const app = require('../lib/app');
 const Nba = require('../lib/models/Nba');
 const { findById } = require('../lib/models/Nba');
-// const Nba = require('../models/Nba');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -73,12 +72,9 @@ describe('backend-hand-of-resources routes', () => {
   });
 
   it('should delete NBA team', async () => {
-    const team = await Nba.insert({
-      name: 'Lakers',
-      coach: 'Frank Vogel',
-    });
-    const res = await request(app).delete(`/api/v1/aot/${team.id}`);
+    const team = await Nba.insert({ name: 'Lakers', coach: 'Frank Vogel' });
+    const res = await request(app).delete(`/api/v1/nba/${team.id}`);
 
-    expect(res.body).toEqual(team);
+    expect(res.body).toBeNull;
   });
 });
