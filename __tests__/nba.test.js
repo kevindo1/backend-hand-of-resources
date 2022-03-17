@@ -41,4 +41,14 @@ describe('backend-hand-of-resources routes', () => {
     const res = await request(app).get('/api/v1/nba');
     expect(res.body).toEqual(expect.arrayContaining([team1, team2]));
   });
+
+  it('should get individual team by id', async () => {
+    const team = await Nba.insert({
+      name: 'Lakers',
+      coach: 'Frank Vogel',
+    });
+    const res = await request(app).get(`/api/v1/nba/${team.id}`);
+
+    expect(res.body).toEqual(team);
+  });
 });
