@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Nba = require('../lib/models/Nba');
+const { findById } = require('../lib/models/Nba');
 // const Nba = require('../models/Nba');
 
 describe('backend-hand-of-resources routes', () => {
@@ -50,5 +51,24 @@ describe('backend-hand-of-resources routes', () => {
     const res = await request(app).get(`/api/v1/nba/${team.id}`);
 
     expect(res.body).toEqual(team);
+  });
+
+  it('should edit NBA team', async () => {
+    const team = await Nba.insert({
+      name: 'Lakers',
+      coach: 'Frank Vogel',
+    });
+    const res = await request(app)
+      .patch(`/api/v1/nba/1`)
+      .send({ name: 'Laker', coach: 'Franky Vogel' });
+
+    const expected = {
+      id: expect.any(String),
+      name: 'Laker',
+      coach: 'Franky Vogel',
+    };
+
+    expect(res.body).toEqual(expected);
+    expect(await findById(team.id)).toEqual(expected);
   });
 });
