@@ -26,4 +26,17 @@ describe('backend-hand-of-resources routes', () => {
       coach: 'Frank Vogel',
     });
   });
+
+  it('should get list of NBA teams', async () => {
+    const team1 = {
+      name: 'Lakers',
+      coach: 'Frank Vogel',
+    };
+    const team2 = {
+      name: '76ers',
+      coach: 'Doc Rivers',
+    };
+
+    const res = await request(app).get('/api/v1/nba');
+  });
 });
