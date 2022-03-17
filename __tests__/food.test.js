@@ -13,14 +13,15 @@ describe('food route', () => {
   });
 
   it.only('should create a food', async () => {
-    const res = await request(app)
-    .post('/api/v1/food' 
-    .send({ name: 'burger', calories: '800' });
-    
-    expect(res.body).toEqual({
+    const expected = {
       id: expect.any(String),
       name: 'Burger',
       calories: '800',
-    })
+    };
+    const res = await request(app)
+      .post('/api/v1/food')
+      .send({ name: 'burger', calories: '800' });
+
+    expect(res.body).toEqual(expected);
   });
 });
