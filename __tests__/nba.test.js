@@ -71,4 +71,14 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await findById(team.id)).toEqual(expected);
   });
+
+  it('should delete NBA team', async () => {
+    const team = await Nba.insert({
+      name: 'Lakers',
+      coach: 'Frank Vogel',
+    });
+    const res = await request(app).delete(`/api/v1/aot/${team.id}`);
+
+    expect(res.body).toEqual(team);
+  });
 });
