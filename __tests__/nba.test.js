@@ -53,18 +53,18 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(team);
   });
 
-  it.only('should edit NBA team', async () => {
+  it('should edit NBA team', async () => {
     const team = await Nba.insert({
       name: 'Lakers',
       coach: 'Frank Vogel',
     });
     const res = await request(app)
       .patch(`/api/v1/nba/1`)
-      .send({ name: 'Laker', coach: 'Franky Vogel' });
+      .send({ name: 'Lakers', coach: 'Franky Vogel' });
 
     const expected = {
       id: expect.any(String),
-      name: 'Laker',
+      name: 'Lakers',
       coach: 'Franky Vogel',
     };
 
