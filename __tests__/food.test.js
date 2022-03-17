@@ -18,10 +18,12 @@ describe('food route', () => {
       name: 'Burger',
       calories: '800',
     };
-    const res = await request(app)
-      .post('/api/v1/food')
-      .send({ name: 'burger', calories: '800' });
+    const res = await request(app).post('/api/v1/food').send(expected);
 
-    expect(res.body).toEqual(expected);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      name: 'Burger',
+      calories: '800',
+    });
   });
 });
