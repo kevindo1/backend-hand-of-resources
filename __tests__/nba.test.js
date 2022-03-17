@@ -75,6 +75,7 @@ describe('backend-hand-of-resources routes', () => {
     const team = await Nba.insert({ name: 'Lakers', coach: 'Frank Vogel' });
     const res = await request(app).delete(`/api/v1/nba/${team.id}`);
 
-    expect(res.body).toBeNull;
+    expect(res.body).toEqual(team);
+    expect(await findById(team.id)).toBeNull();
   });
 });
