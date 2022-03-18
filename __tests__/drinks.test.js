@@ -57,4 +57,10 @@ describe('drink routes', () => {
 
     expect(res.body).toEqual({ ...expected });
   });
+
+  it('should delete drink', async () => {
+    const drink = await Drink.insert({ name: 'pink lemonade', color: 'pink' });
+
+    const res = await request(app).delete('/api/v1/drinks/1');
+  });
 });
