@@ -53,7 +53,7 @@ describe('food route', () => {
     expect(res.body).toEqual(food);
   });
 
-  it.only('should edit food', async () => {
+  it('should edit food', async () => {
     const food = await Food.insert({
       name: 'Burger',
       calories: '800',
@@ -71,5 +71,15 @@ describe('food route', () => {
     expect(res.body).toEqual({ ...expected });
   });
 
-  it('should delete food', async () => {});
+  it('should delete food', async () => {
+    const food = await Food.insert({
+      name: 'Burger',
+      calories: '800',
+    });
+
+    const res = await request(app).delete('/api/v1/food/1');
+
+    expect(res.body).toEqual(food);
+    expect(await findById(food.id)).toBeNull();
+  });
 });
