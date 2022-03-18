@@ -48,7 +48,7 @@ describe('food route', () => {
       calories: '800',
     });
 
-    const res = await request(app).get(`/api/v1/${food.id}`);
+    const res = await request(app).get(`/api/v1/food/${food.id}`);
     expect(res.body).toEqual(food);
   });
 });
