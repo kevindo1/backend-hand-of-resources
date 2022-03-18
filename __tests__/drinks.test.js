@@ -38,7 +38,7 @@ describe('drink routes', () => {
   it('should return drink by id', async () => {
     const drink = await Drink.insert({ name: 'pink lemonade', color: 'pink' });
 
-    const res = await request(app).get('/api/v1/1');
+    const res = await request(app).get('/api/v1/drinks/1');
     expect(res.body).toEqual(drink);
   });
 });
