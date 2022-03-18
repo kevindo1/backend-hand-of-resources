@@ -54,11 +54,12 @@ describe('anime routes', () => {
       name: 'Jujutsu Kaisen',
       character: 'Nobara Kugisaki',
     });
-    const res = await request(app)
-      .patch('/api/v1/anime/1')
-      .send({ name: 'Nobara' });
 
-    const expected = await Anime.insert(1, {
+    const res = await request(app)
+      .patch(`/api/v1/anime/${anime.id}`)
+      .send({ name: 'Jujutsu Kaisen', character: 'Nobara' });
+
+    const expected = await Anime.updateById(1, {
       name: 'Jujutsu Kaisen',
       character: 'Nobara',
     });
