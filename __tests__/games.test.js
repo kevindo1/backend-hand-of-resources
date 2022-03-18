@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const Game = require('../lib/models/Games');
 const res = require('express/lib/response');
+const { findById } = require('../lib/models/Nba');
 
 describe('games routes', () => {
   beforeEach(() => {
@@ -57,5 +58,17 @@ describe('games routes', () => {
     });
 
     expect(res.body).toEqual({ ...expected });
+  });
+
+  it('delete game', async () => {
+    const game = await Game.insert({
+      name: 'Mario',
+      system: 'Nintendo',
+    });
+
+    const res = await request(app).delete('/api/v1/games/1');
+
+    expect(res.body).toEqual(game);
+    expect(await findById(game.id)).toBeNull();
   });
 });
