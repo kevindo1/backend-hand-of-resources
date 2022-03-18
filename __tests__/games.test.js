@@ -40,4 +40,22 @@ describe('games routes', () => {
 
     expect(res.body).toEqual(game);
   });
+
+  it('should edit by id', async () => {
+    const game = await Game.insert({
+      name: 'Mario',
+      system: 'Nintendo',
+    });
+
+    const res = await request(app)
+      .patch(`/api/v1/games/${game.id}`)
+      .send({ name: 'Luigi', system: 'Nintendo' });
+
+    const expected = await Anime.updateById(1, {
+      name: 'Luigi',
+      system: 'Nintendo',
+    });
+
+    expect(res.body).toEqual({ ...expected });
+  });
 });
