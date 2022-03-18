@@ -3,7 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('anime routes', () => {
+describe('drink routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -17,7 +17,7 @@ describe('anime routes', () => {
       name: 'pink lemonade',
       color: 'pink',
     };
-    const res = request(app).post('/api/v1/drinks').send(drink);
+    const res = await request(app).post('/api/v1/drinks').send(drink);
 
     expect(res.body).toEqual({
       id: expect.any(String),
