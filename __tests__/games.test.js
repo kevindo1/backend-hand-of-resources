@@ -51,7 +51,7 @@ describe('games routes', () => {
       .patch(`/api/v1/games/${game.id}`)
       .send({ name: 'Luigi', system: 'Nintendo' });
 
-    const expected = await Anime.updateById(1, {
+    const expected = await Game.updateById(1, {
       name: 'Luigi',
       system: 'Nintendo',
     });
