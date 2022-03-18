@@ -40,12 +40,29 @@ describe('anime routes', () => {
     expect(res.body).toEqual([anime1, anime2]);
   });
 
-  it.only('should get anime by id', async () => {
+  it('should get anime by id', async () => {
     const anime = await Anime.insert({
       name: 'Jujutsu Kaisen',
       character: 'Nobara Kugisaki',
     });
     const res = await request(app).get(`/api/v1/anime/${anime.id}`);
     expect(res.body).toEqual(anime);
+  });
+
+  it('should edit anime', async () => {
+    const anime = await Anime.insert({
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara Kugisaki',
+    });
+    const res = await request(app)
+      .patch('/api/v1/anime/1')
+      .send({ name: 'Nobara' });
+
+    const expected = await Anime.insert(1, {
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara',
+    });
+
+    expect(res.body).toEqual({ ...expected });
   });
 });
