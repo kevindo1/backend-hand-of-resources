@@ -66,4 +66,16 @@ describe('anime routes', () => {
 
     expect(res.body).toEqual({ ...expected });
   });
+
+  it('should delete anime', async () => {
+    const anime = await Anime.insert({
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara Kusigaki',
+    });
+
+    const res = await request(app).delete('/api/v1/anime/1');
+
+    expect(res.body).toEqual(anime);
+    expect(await findById(anime.id)).toBeNull();
+  });
 });
