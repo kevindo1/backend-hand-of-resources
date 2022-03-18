@@ -26,4 +26,12 @@ describe('drink routes', () => {
       color: 'pink',
     });
   });
+
+  it('should return list of drinks', async () => {
+    const drink1 = await Drink.insert({ name: 'pink lemonade', color: 'pink' });
+    const drink2 = await Drink.insert({ name: 'water', color: 'clear' });
+
+    const res = await request(app).get('/api/v1/drinks');
+    expect(res.body).toEqual([drink1, drink2]);
+  });
 });
