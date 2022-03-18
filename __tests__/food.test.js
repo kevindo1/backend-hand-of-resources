@@ -41,4 +41,14 @@ describe('food route', () => {
     const res = await request(app).get('/api/v1/food');
     expect(res.body).toEqual(expect.arrayContaining([food1, food2]));
   });
+
+  it('should get a food by id', async () => {
+    const food = await Food.insert({
+      name: 'Burger',
+      calories: '800',
+    });
+
+    const res = await request(app).get(`/api/v1/${food.id}`);
+    expect(res.body).toEqual(food);
+  });
 });
