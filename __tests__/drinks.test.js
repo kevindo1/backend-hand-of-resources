@@ -3,7 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Drink = require('../lib/models/Drinks');
-const { updateById } = require('../lib/models/Drinks');
+const { updateById, findById } = require('../lib/models/Drinks');
 
 describe('drink routes', () => {
   beforeEach(() => {
@@ -62,5 +62,8 @@ describe('drink routes', () => {
     const drink = await Drink.insert({ name: 'pink lemonade', color: 'pink' });
 
     const res = await request(app).delete('/api/v1/drinks/1');
+
+    expect(res.body).toEqual(drink);
+    expect(await findById(drink.id)).toBeNull();
   });
 });
