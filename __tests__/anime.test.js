@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Anime = require('../lib/models/Anime');
 
 describe('anime routes', () => {
   beforeEach(() => {
@@ -24,5 +25,18 @@ describe('anime routes', () => {
       name: 'Jujutsu Kaisen',
       character: 'Nobara Kugisaki',
     });
+  });
+
+  it('should get all animes', async () => {
+    const anime1 = await Anime.insert({
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara Kugisaki',
+    });
+    const anime2 = await Anime.insert({
+      name: 'Demon Slayer',
+      character: 'Tanjiro Kamado',
+    });
+    const res = await request(app).get('/api/v1/anime');
+    expect(res.body).toEqual([anime1, anime2]);
   });
 });
