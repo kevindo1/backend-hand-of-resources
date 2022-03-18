@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Anime = require('../lib/models/Anime');
+const { findById } = require('../lib/models/Anime');
 
 describe('anime routes', () => {
   beforeEach(() => {
