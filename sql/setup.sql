@@ -23,3 +23,11 @@ CREATE TABLE anime (
   name TEXT NOT NULL,
   character TEXT NOT NULL
 );
+
+DROP TABLE IF EXISTS drinks;
+
+CREATE TABLE drinks (
+  id BIGINT GENERATED ALWAYS AS IDENTITY,
+  name TEXT NOT NULL,
+  color TEXT NOT NULL
+);
