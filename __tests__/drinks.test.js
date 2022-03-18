@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Drink = require('../lib/models/Drinks');
+const { updateById } = require('../lib/models/Drinks');
 
 describe('drink routes', () => {
   beforeEach(() => {
@@ -47,13 +48,13 @@ describe('drink routes', () => {
 
     const res = await request(app)
       .patch(`/api/v1/drinks/${drink.id}`)
-      .send({ color: 'blue' });
+      .send({ name: 'pink lemonade', color: 'blue' });
 
     const expected = await Drink.updateById(1, {
       name: 'pink lemonade',
-      color: 'pink',
+      color: 'blue',
     });
 
-    expect(res.body).toEqual(...expected);
+    expect(res.body).toEqual({ ...expected });
   });
 });
