@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Food = require('../lib/models/Food');
+const { findById } = require('../lib/models/Nba');
 
 describe('food route', () => {
   beforeEach(() => {
@@ -50,5 +51,25 @@ describe('food route', () => {
 
     const res = await request(app).get(`/api/v1/food/${food.id}`);
     expect(res.body).toEqual(food);
+  });
+
+  it('should edit food', async () => {
+    const food = await Food.insert({
+      name: 'Burger',
+      calories: '800',
+    });
+
+    const res = await request(app)
+      .patch('/api/v1/food')
+      .send({ name: 'Burger', calories: '700' });
+
+    const expected = {
+      id: expect.any(String),
+      name: 'Burger',
+      branch: '700',
+    };
+
+    expect(res.body).toEqual(expected);
+    expect(await findById(food.id)).toEqual(expected);
   });
 });
