@@ -39,4 +39,13 @@ describe('anime routes', () => {
     const res = await request(app).get('/api/v1/anime');
     expect(res.body).toEqual([anime1, anime2]);
   });
+
+  it('should get anime by id', async () => {
+    const anime = await Anime.insert({
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara Kugisaki',
+    });
+    const res = await request(app).get(`/api/v1/${anime.id}`);
+    expect(res.body).toEqual(anime);
+  });
 });
