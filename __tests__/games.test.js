@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Game = require('../lib/models/Games');
+const res = require('express/lib/response');
 
 describe('games routes', () => {
   beforeEach(() => {
@@ -30,5 +31,13 @@ describe('games routes', () => {
 
     const res = await request(app).get('/api/v1/games');
     expect(res.body).toEqual([game1, game2]);
+  });
+
+  it('should get game by id', async () => {
+    const game = await Game.insert({ name: 'Mario', system: 'Nintendo' });
+
+    const res = await request(app).get(`/api/v1/games/${game.id}`);
+
+    expect(res.body).toEqual(game);
   });
 });
