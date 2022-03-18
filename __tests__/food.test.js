@@ -63,11 +63,13 @@ describe('food route', () => {
       .patch(`/api/v1/food/${food.id}`)
       .send({ name: 'Burger', calories: '700' });
 
-    const expected = {
+    const expected = await Food.updateById(1, {
       name: 'Burger',
       calories: '700',
-    };
+    });
 
-    expect(res.body).toEqual({ id: expect.any(String), ...expected });
+    expect(res.body).toEqual({ ...expected });
   });
+
+  it('should delete food', async () => {});
 });
