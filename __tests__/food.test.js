@@ -53,23 +53,21 @@ describe('food route', () => {
     expect(res.body).toEqual(food);
   });
 
-  it('should edit food', async () => {
+  it.only('should edit food', async () => {
     const food = await Food.insert({
       name: 'Burger',
       calories: '800',
     });
 
     const res = await request(app)
-      .patch('/api/v1/food')
+      .patch(`/api/v1/food/${food.id}`)
       .send({ name: 'Burger', calories: '700' });
 
     const expected = {
-      id: expect.any(String),
       name: 'Burger',
-      branch: '700',
+      calories: '700',
     };
 
-    expect(res.body).toEqual(expected);
-    expect(await findById(food.id)).toEqual(expected);
+    expect(res.body).toEqual({ id: expect.any(String), ...expected });
   });
 });
