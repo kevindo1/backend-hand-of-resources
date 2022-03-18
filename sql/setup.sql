@@ -15,3 +15,11 @@ CREATE TABLE food (
   name TEXT NOT NULL,
   calories TEXT NOT NULL
 );
+
+DROP TABLE IF EXISTS anime;
+
+CREATE TABLE anime (
+  id BIGINT GENERATED ALWAYS AS IDENTITY,
+  name TEXT NOT NULL,
+  character TEXT NOT NULL
+);

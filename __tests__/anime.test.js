@@ -19,6 +19,10 @@ describe('anime routes', () => {
     };
     const res = await request(app).post('/api/v1/anime').send(anime);
 
-    expect(res.body).toEqual(anime);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      name: 'Jujutsu Kaisen',
+      character: 'Nobara Kugisaki',
+    });
   });
 });
