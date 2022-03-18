@@ -41,4 +41,19 @@ describe('drink routes', () => {
     const res = await request(app).get('/api/v1/drinks/1');
     expect(res.body).toEqual(drink);
   });
+
+  it('should edit drink', async () => {
+    const drink = await Drink.insert({ name: 'pink lemonade', color: 'pink' });
+
+    const res = await request(app)
+      .patch(`/api/v1/drinks/${drink.id}`)
+      .send({ color: 'blue' });
+
+    const expected = await Drink.updateById(1, {
+      name: 'pink lemonade',
+      color: 'pink',
+    });
+
+    expect(res.body).toEqual(...expected);
+  });
 });
